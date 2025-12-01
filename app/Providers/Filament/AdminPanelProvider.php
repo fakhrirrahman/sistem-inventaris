@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\Login;
+use App\Filament\Pages\Register;
 use App\Http\Middleware\FilamentAuthenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -36,6 +37,7 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Dashboard::class,
                 Login::class,
+                Register::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
