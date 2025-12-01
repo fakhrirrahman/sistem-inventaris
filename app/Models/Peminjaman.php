@@ -16,4 +16,14 @@ class Peminjaman extends Model
         'alasan_peminjaman',
         'jumlah_peminjaman',
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class);
+    }
 }
