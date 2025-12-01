@@ -9,6 +9,7 @@ use App\Filament\Resources\Barangs\Schemas\BarangForm;
 use App\Filament\Resources\Barangs\Tables\BarangsTable;
 use App\Models\Barang;
 use BackedEnum;
+use UnitEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -18,14 +19,14 @@ class BarangResource extends Resource
 {
     protected static ?string $model = Barang::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-archive-box';
 
     protected static ?string $recordTitleAttribute = 'Barang';
-     protected static ?string $navigationLabel = 'Barang';
+    protected static ?string $navigationLabel = 'Barang';
     protected static ?string $pluralModelLabel = 'Barang';
     protected static ?string $modelLabel = 'Barang';
-    
-    
+    protected static string | UnitEnum | null $navigationGroup = 'Master Data';
+
 
     public static function form(Schema $schema): Schema
     {

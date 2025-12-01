@@ -1,32 +1,34 @@
 <?php
 
-namespace App\Filament\Resources\Customers\Tables;
+namespace App\Filament\Resources\Peminjamen\Tables;
 
-use Filament\Tables\Table;
-use Filament\Actions\EditAction;
-use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 
-class CustomersTable
+class PeminjamenTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('customer_id')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('barang_id')
+                    ->numeric()
+                    ->sortable(),
+                TextColumn::make('tanggal_pinjam')
+                    ->dateTime()
+                    ->sortable(),
+                TextColumn::make('tanggal_kembali')
+                    ->dateTime()
+                    ->sortable(),
+                TextColumn::make('alasan_peminjaman')
                     ->searchable(),
-                TextColumn::make('email')
-                    ->label('Email address')
-                    ->searchable(),
-                TextColumn::make('nomor_induk')
-                    ->searchable(),
-                TextColumn::make('alamat')
-                    ->searchable(),
-                TextColumn::make('kelas')
-                    ->searchable(),
-                TextColumn::make('jurusan')
+                TextColumn::make('jumlah_peminjaman')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -42,8 +44,6 @@ class CustomersTable
             ])
             ->recordActions([
                 EditAction::make(),
-                DeleteAction::make(),
-
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
