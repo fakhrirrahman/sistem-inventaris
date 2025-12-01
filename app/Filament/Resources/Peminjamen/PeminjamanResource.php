@@ -20,7 +20,7 @@ class PeminjamanResource extends Resource
 
     protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-book-open';
 
-    protected static ?string $recordTitleAttribute = 'Peminjaman';
+    protected static ?string $recordTitleAttribute = 'id';
     public static function getNavigationLabel(): string
     {
         return 'Peminjaman';
