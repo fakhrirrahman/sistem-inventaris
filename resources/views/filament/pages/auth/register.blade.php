@@ -81,7 +81,7 @@
                 <div class="mt-8 text-center">
                     <p class="text-gray-600 text-sm">
                         Sudah memiliki akun?
-                        <a href="{{ route('filament.admin.pages.login') }}"
+                        <a href="/admin/login"
                             class="font-semibold text-cyan-600 hover:text-cyan-700 transition">
                             Login di sini
                         </a>
@@ -92,47 +92,47 @@
 
         <div class="hidden md:flex md:w-1/2 bg-gradient-to-br from-cyan-500 to-cyan-600 relative overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-center"
-                style="background-image: url('{{ Vite::asset('resources/assets/images/home.png') }}');"></div>
+                style="background-image: url('{{vite::asset('resources/images/register-bg.jpg')}}'); filter: brightness(0.7);">
         </div>
     </div>
 
     <script>
-        // Tunggu Swal tersedia
-        function checkAndShowAlert() {
-            if (typeof window.Swal !== 'undefined') {
-                @if (session('success'))
-                    window.Swal.fire({
-                        icon: 'success',
-                        title: 'Berhasil!',
-                        text: '{{ session('success') }}',
-                        confirmButtonColor: '#06b6d4',
-                        confirmButtonText: 'Login Sekarang',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false
-                    }).then((result) => {
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: @json(session('success')),
+                    confirmButtonColor: '#06b6d4',
+                    confirmButtonText: 'Login Sekarang',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    didClose: function() {
                         window.location.href = '/admin/login';
-                    });
-                @endif
+                    }
+                });
+            @endif
 
-                @if ($errors->any())
-                    window.Swal.fire({
-                        icon: 'error',
-                        title: 'Error!',
-                        text: '{{ $errors->first() }}',
-                        confirmButtonColor: '#06b6d4'
-                    });
-                @endif
-            } else {
-                setTimeout(checkAndShowAlert, 50);
-            }
-        }
-
-        // Jalankan setelah DOM ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', checkAndShowAlert);
-        } else {
-            checkAndShowAlert();
-        }
+            @if ($errors->any())
+                let errorMessages = [];
+                @foreach ($errors->all() as $error)
+                    errorMessages.push(@json($error));
+                @endforeach
+                
+                let errorHtml = '<div style="text-align: left;">';
+                errorMessages.forEach(function(msg) {
+                    errorHtml += '<p style="margin: 5px 0;">• ' + msg + '</p>';
+                });
+                errorHtml += '</div>';
+                
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validasi Gagal!',
+                    html: errorHtml,
+                    confirmButtonColor: '#06b6d4'
+                });
+            @endif
+        });
     </script>
 </body>
 
