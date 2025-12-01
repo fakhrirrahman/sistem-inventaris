@@ -18,7 +18,7 @@ class PeminjamanResource extends Resource
 {
     protected static ?string $model = Peminjaman::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-book-open';
 
     protected static ?string $recordTitleAttribute = 'Peminjaman';
     public static function getNavigationLabel(): string

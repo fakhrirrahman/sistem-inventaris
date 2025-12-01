@@ -7,19 +7,18 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-
 class PeminjamenTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('customer_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('barang_id')
-                    ->numeric()
-                    ->sortable(),
+               TextColumn::make('customer.name')
+                    ->label('Nama Peminjam')
+                    ->searchable(),
+                TextColumn::make('barang.nama_barang')
+                    ->label('Barang Dipinjam')
+                    ->searchable(),
                 TextColumn::make('tanggal_pinjam')
                     ->dateTime()
                     ->sortable(),
