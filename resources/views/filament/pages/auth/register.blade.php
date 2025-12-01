@@ -21,18 +21,15 @@
                     <p class="text-gray-500 text-sm">Buat akun untuk mengakses sistem inventaris</p>
                 </div>
 
-                @if (session('success'))
-                    <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
-                        {{ session('success') }}
-                    </div>
-                @endif
+                <form method="POST" action="{{ route('register.store') }}" class="space-y-5" id="registerForm">
+                    @csrf
 
-                <form wire:submit.prevent="register" class="space-y-5">
                     <div>
                         <label for="name" class="block text-sm font-medium text-gray-900 mb-2">
                             Nama Lengkap <span class="text-red-500">*</span>
                         </label>
-                        <input id="name" type="text" wire:model="name" placeholder="Nama Anda"
+                        <input id="name" type="text" name="name" value="{{ old('name') }}"
+                            placeholder="Nama Anda"
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition @error('name') border-red-500 @enderror"
                             required />
                         @error('name')
@@ -44,7 +41,8 @@
                         <label for="email" class="block text-sm font-medium text-gray-900 mb-2">
                             Email <span class="text-red-500">*</span>
                         </label>
-                        <input id="email" type="email" wire:model="email" placeholder="nama@perusahaan.com"
+                        <input id="email" type="email" name="email" value="{{ old('email') }}"
+                            placeholder="nama@perusahaan.com"
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition @error('email') border-red-500 @enderror"
                             required />
                         @error('email')
@@ -56,7 +54,7 @@
                         <label for="password" class="block text-sm font-medium text-gray-900 mb-2">
                             Password <span class="text-red-500">*</span>
                         </label>
-                        <input id="password" type="password" wire:model="password" placeholder="Min. 8 karakter"
+                        <input id="password" type="password" name="password" placeholder="Min. 8 karakter"
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition @error('password') border-red-500 @enderror"
                             required />
                         @error('password')
@@ -68,7 +66,8 @@
                         <label for="password_confirmation" class="block text-sm font-medium text-gray-900 mb-2">
                             Konfirmasi Password <span class="text-red-500">*</span>
                         </label>
-                        <input id="password_confirmation" type="password" wire:model="password_confirmation" placeholder="Ulangi password"
+                        <input id="password_confirmation" type="password" name="password_confirmation"
+                            placeholder="Ulangi password"
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition"
                             required />
                     </div>
@@ -82,7 +81,8 @@
                 <div class="mt-8 text-center">
                     <p class="text-gray-600 text-sm">
                         Sudah memiliki akun?
-                        <a href="{{ route('filament.admin.pages.login') }}" class="font-semibold text-cyan-600 hover:text-cyan-700 transition">
+                        <a href="{{ route('filament.admin.pages.login') }}"
+                            class="font-semibold text-cyan-600 hover:text-cyan-700 transition">
                             Login di sini
                         </a>
                     </p>
@@ -95,6 +95,45 @@
                 style="background-image: url('{{ Vite::asset('resources/assets/images/home.png') }}');"></div>
         </div>
     </div>
+
+    <script>
+        // Tunggu Swal tersedia
+        function checkAndShowAlert() {
+            if (typeof window.Swal !== 'undefined') {
+                @if (session('success'))
+                    window.Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil!',
+                        text: '{{ session('success') }}',
+                        confirmButtonColor: '#06b6d4',
+                        confirmButtonText: 'Login Sekarang',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    }).then((result) => {
+                        window.location.href = '/admin/login';
+                    });
+                @endif
+
+                @if ($errors->any())
+                    window.Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: '{{ $errors->first() }}',
+                        confirmButtonColor: '#06b6d4'
+                    });
+                @endif
+            } else {
+                setTimeout(checkAndShowAlert, 50);
+            }
+        }
+
+        // Jalankan setelah DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', checkAndShowAlert);
+        } else {
+            checkAndShowAlert();
+        }
+    </script>
 </body>
 
 </html>
