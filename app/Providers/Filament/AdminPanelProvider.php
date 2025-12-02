@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Pages\Login;
 use App\Filament\Pages\Register;
+use App\Filament\Resources\Barangs\Widgets\BarangOverview;
 use App\Http\Middleware\FilamentAuthenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -34,8 +35,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
+            ->homeUrl(fn () => route('filament.admin.pages.dashboard'))
             ->pages([
-                Dashboard::class,
                 Login::class,
                 Register::class,
             ])
