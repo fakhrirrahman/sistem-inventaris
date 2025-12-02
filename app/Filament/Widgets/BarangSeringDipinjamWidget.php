@@ -29,9 +29,10 @@ class BarangSeringDipinjamWidget extends BaseWidget
                 Barang::whereIn('id', $barangSeringDipinjam->pluck('id'))
             )
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID Barang')
-                    ->sortable(),
+                TextColumn::make('no')
+                    ->label('No')
+                    ->rowIndex(),
+
                 TextColumn::make('nama_barang')
                     ->label('Nama Barang')
                     ->sortable(),

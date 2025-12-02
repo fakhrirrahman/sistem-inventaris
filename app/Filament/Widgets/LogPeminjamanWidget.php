@@ -23,9 +23,9 @@ class LogPeminjamanWidget extends BaseWidget
                     ->limit(5)
             )
             ->columns([
-               TextColumn::make('id')
-                    ->label('Order ID')
-                    ->sortable(),
+               TextColumn::make('no')
+                    ->label('No')
+                    ->rowIndex(),
                TextColumn::make('customer.name')
                     ->label('Nama Customer')
                     ->sortable(),
