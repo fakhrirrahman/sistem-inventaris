@@ -52,13 +52,13 @@
                             Login di sini
                         </a>
                     </p>
-                    <p class="text-gray-600 text-sm">
+                    {{-- <p class="text-gray-600 text-sm">
                         Belum memiliki akun?
                         <a href="/admin/register"
                             class="font-semibold text-cyan-600 hover:text-cyan-700 transition">
                             Daftar di sini
                         </a>
-                    </p>
+                    </p> --}}
                 </div>
             </div>
         </div>
