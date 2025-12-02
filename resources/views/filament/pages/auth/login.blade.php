@@ -74,7 +74,7 @@
                                 class="w-4 h-4 border border-gray-300 rounded bg-white text-cyan-600 focus:ring-2 focus:ring-cyan-500 cursor-pointer" />
                             <span class="text-sm text-gray-700">Ingat saya</span>
                         </label>
-                        <a href="#" class="text-sm font-medium text-cyan-600 hover:text-cyan-700 transition">
+                        <a href="{{ route('password.request') }}" class="text-sm font-medium text-cyan-600 hover:text-cyan-700 transition">
                             Lupa password?
                         </a>
                     </div>
