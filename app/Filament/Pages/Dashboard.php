@@ -7,6 +7,8 @@ use Filament\Pages\Page;
 use App\Filament\Resources\Barangs\Widgets\BarangOverview;
 use App\Filament\Resources\Customers\Widgets\CustomerOverview;
 use App\Filament\Widgets\OverviewStats;
+use App\Filament\Widgets\BarangChartWidget;
+use App\Filament\Widgets\PeminjamanChartWidget;
 
 class Dashboard extends Page
 {
@@ -27,6 +29,9 @@ class Dashboard extends Page
 
     protected function getFooterWidgets(): array
     {
-        return [];
+        return [
+            BarangChartWidget::class,
+            PeminjamanChartWidget::class,
+        ];
     }
 }
