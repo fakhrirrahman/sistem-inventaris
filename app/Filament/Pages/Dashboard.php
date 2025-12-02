@@ -9,6 +9,8 @@ use App\Filament\Resources\Customers\Widgets\CustomerOverview;
 use App\Filament\Widgets\OverviewStats;
 use App\Filament\Widgets\BarangChartWidget;
 use App\Filament\Widgets\PeminjamanChartWidget;
+use App\Filament\Widgets\LogPeminjamanWidget;
+use App\Filament\Widgets\BarangSeringDipinjamWidget;
 
 class Dashboard extends Page
 {
@@ -32,6 +34,8 @@ class Dashboard extends Page
         return [
             BarangChartWidget::class,
             PeminjamanChartWidget::class,
+            LogPeminjamanWidget::class,
+            BarangSeringDipinjamWidget::class,
         ];
     }
 }
