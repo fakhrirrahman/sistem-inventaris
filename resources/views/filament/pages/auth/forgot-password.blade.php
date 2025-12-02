@@ -65,7 +65,7 @@
 
         <div class="hidden md:flex md:w-1/2 bg-gradient-to-br from-cyan-500 to-cyan-600 relative overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-center"
-                style="background-image:url('{{ Vite::asset('resources/assets/images/home.png') }}'); filter: brightness(0.7);">
+                style="background-image:url('{{ Vite::asset('resources/assets/images/home.png') }}');">
             </div>
         </div>
     </div>
