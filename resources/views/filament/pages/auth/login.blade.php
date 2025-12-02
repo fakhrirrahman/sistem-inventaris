@@ -21,7 +21,7 @@
                     <p class="text-gray-500 text-sm">Login untuk mengakses sistem inventaris</p>
                 </div>
 
-                <button type="button"
+                {{-- <button type="button"
                     class="w-full mb-8 py-3 px-4 border border-gray-300 rounded-lg text-gray-700 font-medium flex items-center justify-center gap-2 hover:bg-gray-50 transition duration-200">
                     <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -38,13 +38,13 @@
                             fill="#EA4335" />
                     </svg>
                     <span>Lanjutkan dengan Google</span>
-                </button>
+                </button> --}}
 
-                <div class="flex items-center mb-8">
+                {{-- <div class="flex items-center mb-8">
                     <div class="flex-1 border-t border-gray-200"></div>
                     <span class="px-3 text-gray-500 text-sm">atau</span>
                     <div class="flex-1 border-t border-gray-200"></div>
-                </div>
+                </div> --}}
 
                 <form wire:submit.prevent="authenticate" class="space-y-5">
                     <div>
