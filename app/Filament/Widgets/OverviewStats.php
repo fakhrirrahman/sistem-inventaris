@@ -17,10 +17,10 @@ class OverviewStats extends BaseWidget
                 ->description('Jumlah keseluruhan barang dalam inventaris')
                 ->descriptionIcon('heroicon-o-archive-box')
                 ->color('primary'),
-            Stat::make('Total Customer', Customer::count())
-                ->description('Jumlah keseluruhan customer')
-                ->descriptionIcon('heroicon-o-users')
-                ->color('success'),
+            // Stat::make('Total Customer', Customer::count())
+            //     ->description('Jumlah keseluruhan customer')
+            //     ->descriptionIcon('heroicon-o-users')
+            //     ->color('success'),
             Stat::make('Jumlah Barang Terpinjam', Peminjaman::whereNotNull('tanggal_pinjam')->count())
                 ->description('Jumlah barang yang sedang dipinjam')
                 ->descriptionIcon('heroicon-o-shopping-cart')

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('peminjaman', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id');
-            $table->foreignId('barang_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('barang_id');
             $table->datetime('tanggal_pinjam');
             $table->datetime('tanggal_kembali')->nullable();
             $table->string('alasan_peminjaman');

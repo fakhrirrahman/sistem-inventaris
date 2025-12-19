@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\Hash;
 
 class PermissionsSeeder extends Seeder
 {
@@ -79,7 +81,7 @@ class PermissionsSeeder extends Seeder
                 'guard_name' => 'web',
             ]);
         }
-        Role::create(['name' => 'SuperAdmin'])->givePermissionTo($permissionsNames);
-        User::where
+        $role = Role::create(['name' => 'SuperAdmin']);
+        $role->givePermissionTo($permissionsNames);
     }
 }

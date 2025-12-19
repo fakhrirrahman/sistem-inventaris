@@ -17,10 +17,10 @@ class Peminjaman extends Model
         'jumlah_peminjaman',
     ];
 
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class);
-    }
+    // public function customer()
+    // {
+    //     return $this->belongsTo(Customer::class);
+    // }
 
     public function barang()
     {
