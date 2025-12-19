@@ -23,11 +23,13 @@ class RegisterController extends Controller
             'password' => 'required|min:8|confirmed',
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
         ]);
+        $user->assignRole('User');
+
 
         return Redirect::route('filament.admin.pages.register')
             ->with('success', 'Akun berhasil dibuat! Silakan login.');

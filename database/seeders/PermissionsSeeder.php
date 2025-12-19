@@ -41,18 +41,6 @@ class PermissionsSeeder extends Seeder
             'Replicate:Barang',
             'Reorder:Barang',
 
-            'ViewAny:Customer',
-            'View:Customer',
-            'Create:Customer',
-            'Update:Customer',
-            'Delete:Customer',
-            'Restore:Customer',
-            'ForceDelete:Customer',
-            'ForceDeleteAny:Customer',
-            'RestoreAny:Customer',
-            'Replicate:Customer',
-            'Reorder:Customer',
-
             'ViewAny:Peminjaman',
             'View:Peminjaman',
             'Create:Peminjaman',
@@ -83,5 +71,20 @@ class PermissionsSeeder extends Seeder
         }
         $role = Role::create(['name' => 'SuperAdmin']);
         $role->givePermissionTo($permissionsNames);
+
+        $role = Role::create(['name' => 'User']);
+        $role->givePermissionTo([
+             'ViewAny:Peminjaman',
+            'View:Peminjaman',
+            'Create:Peminjaman',
+            'Update:Peminjaman',
+            'Delete:Peminjaman',
+            'Restore:Peminjaman',
+            'ForceDelete:Peminjaman',
+            'ForceDeleteAny:Peminjaman',
+            'RestoreAny:Peminjaman',
+            'Replicate:Peminjaman',
+            'Reorder:Peminjaman',
+        ]);
     }
 }
