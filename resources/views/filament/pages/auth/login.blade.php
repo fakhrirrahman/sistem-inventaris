@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Login - Sistem Inventaris</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="bg-gray-50">
@@ -46,31 +48,29 @@
                     <div class="flex-1 border-t border-gray-200"></div>
                 </div> --}}
 
-                <form wire:submit.prevent="authenticate" class="space-y-5">
+                <form id="loginForm" class="space-y-5">
+                    @csrf
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-900 mb-2">
                             Email <span class="text-red-500">*</span>
                         </label>
-                        <input id="email" type="email" wire:model="email" placeholder="nama@perusahaan.com"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition @error('email') border-red-500 @enderror"
-                            required autofocus />
-                        @error('email')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
+                        <input id="email" name="email" type="email" placeholder="nama@perusahaan.com"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition"
+                            required autofocus autocomplete="email" />
                     </div>
 
                     <div>
                         <label for="password" class="block text-sm font-medium text-gray-900 mb-2">
                             Password <span class="text-red-500">*</span>
                         </label>
-                        <input id="password" type="password" wire:model="password" placeholder="Masukkan password Anda"
+                        <input id="password" name="password" type="password" placeholder="Masukkan password Anda"
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition"
-                            required />
+                            required autocomplete="current-password" />
                     </div>
 
                     <div class="flex items-center justify-between pt-2">
                         <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" wire:model="remember"
+                            <input type="checkbox" name="remember" value="1"
                                 class="w-4 h-4 border border-gray-300 rounded bg-white text-cyan-600 focus:ring-2 focus:ring-cyan-500 cursor-pointer" />
                             <span class="text-sm text-gray-700">Ingat saya</span>
                         </label>
@@ -79,7 +79,7 @@
                         </a>
                     </div>
 
-                    <button type="submit"
+                    <button type="submit" id="loginButton"
                         class="w-full mt-6 py-3 px-4 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white font-semibold rounded-lg hover:from-cyan-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 transition duration-200 shadow-md hover:shadow-lg">
                         Masuk
                     </button>
@@ -102,6 +102,63 @@
                 style="background-image: url('{{ Vite::asset('resources/assets/images/home.png') }}');"></div>
         </div>
     </div>
+    
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const button = document.getElementById('loginButton');
+            const originalText = button.textContent;
+            button.disabled = true;
+            button.textContent = 'Memproses...';
+            
+            const formData = new FormData(this);
+            
+            try {
+                const response = await fetch('{{ route("login.authenticate") }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json',
+                    },
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    await Swal.fire({
+                        icon: 'success',
+                        title: 'Login Berhasil',
+                        text: 'Anda akan diarahkan ke dashboard',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                    window.location.href = data.redirect;
+                } else {
+                    await Swal.fire({
+                        icon: 'error',
+                        title: 'Login Gagal',
+                        text: data.message || 'Email atau password salah',
+                        confirmButtonColor: '#06b6d4',
+                        confirmButtonText: 'OK'
+                    });
+                    button.disabled = false;
+                    button.textContent = originalText;
+                }
+            } catch (error) {
+                await Swal.fire({
+                    icon: 'error',
+                    title: 'Terjadi Kesalahan',
+                    text: 'Mohon coba lagi',
+                    confirmButtonColor: '#06b6d4',
+                    confirmButtonText: 'OK'
+                });
+                button.disabled = false;
+                button.textContent = originalText;
+            }
+        });
+    </script>
 </body>
 
 </html>

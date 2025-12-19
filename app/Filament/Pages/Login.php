@@ -33,7 +33,7 @@ class Login extends Page
             session()->regenerate();
             redirect()->intended('/admin');
         } else {
-            $this->addError('email', 'Email atau password salah.');
+            $this->dispatch('login-error', message: 'Email atau password salah.');
         }
     }
 }
