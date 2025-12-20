@@ -61,6 +61,18 @@ class PermissionsSeeder extends Seeder
             'View:LogPeminjamanWidget',
             'View:OverviewStats',
             'View:PeminjamanChartWidget',
+
+            'ViewAny:User',
+            'View:User',
+            'Create:User',
+            'Update:User',
+            'Delete:User',
+            'Restore:User',
+            'ForceDelete:User',
+            'ForceDeleteAny:User',
+            'RestoreAny:User',
+            'Replicate:User',
+            'Reorder:User',
         ];
 
         foreach ($permissionsNames as $permission) {
@@ -74,7 +86,7 @@ class PermissionsSeeder extends Seeder
 
         $role = Role::create(['name' => 'User']);
         $role->givePermissionTo([
-             'ViewAny:Peminjaman',
+            'ViewAny:Peminjaman',
             'View:Peminjaman',
             'Create:Peminjaman',
             'Update:Peminjaman',
