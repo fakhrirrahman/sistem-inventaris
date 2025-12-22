@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class PeminjamanResource extends Resource
 {
@@ -20,7 +21,16 @@ class PeminjamanResource extends Resource
 
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
 
-    protected static ?string $recordTitleAttribute = 'id';
+    protected static ?string $recordTitleAttribute = 'barang.nama_barang';
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+        ->when(! auth()->user()->hasRole('Superadmin'), function ($query) {
+            $query->where('user_id', auth()->id());
+        });
+    }
+
     public static function getNavigationLabel(): string
     {
         return 'Peminjaman';

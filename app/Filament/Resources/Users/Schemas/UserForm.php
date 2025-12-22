@@ -16,7 +16,9 @@ class UserForm
                 TextInput::make('name')
                     ->required(),
                 Select::make('roles')
-                    ->relationship('roles','name'),
+                    ->relationship('roles', 'name')
+                    ->multiple()
+                    ->preload(),
                 TextInput::make('email')
                     ->label('Email address')
                     ->email()

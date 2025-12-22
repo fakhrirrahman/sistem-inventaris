@@ -18,7 +18,7 @@ class LogPeminjamanWidget extends BaseWidget
     {
         return $table
             ->query(
-                Peminjaman::with(['customer', 'barang'])
+                Peminjaman::with(['user', 'barang'])
                     ->latest()
                     ->limit(5)
             )
@@ -26,8 +26,8 @@ class LogPeminjamanWidget extends BaseWidget
                TextColumn::make('no')
                     ->label('No')
                     ->rowIndex(),
-               TextColumn::make('customer.name')
-                    ->label('Nama Customer')
+               TextColumn::make('user.name')
+                    ->label('Nama Peminjam')
                     ->sortable(),
                TextColumn::make('tanggal_pinjam')
                     ->label('Tanggal Peminjaman')

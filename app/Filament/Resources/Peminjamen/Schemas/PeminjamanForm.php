@@ -17,7 +17,10 @@ class PeminjamanForm
                     ->relationship('user', 'name')
                     ->searchable()
                     ->preload()
-                    ->required(),
+                    ->required()
+                    ->default(fn () => auth()->user()->hasRole('super_admin') ? null : auth()->id())
+                    ->disabled(fn () => !auth()->user()->hasRole('super_admin'))
+                    ->dehydrated(),
                 Select::make('barang_id')
                     ->relationship('barang', 'nama_barang')
                     ->searchable()
