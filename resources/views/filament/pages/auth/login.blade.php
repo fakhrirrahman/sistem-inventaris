@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{{ Vite::asset('resources/assets/images/icon.png') }}" type="image/x-icon">
     <title>Login - Sistem Inventaris</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -74,7 +76,8 @@
                                 class="w-4 h-4 border border-gray-300 rounded bg-white text-cyan-600 focus:ring-2 focus:ring-cyan-500 cursor-pointer" />
                             <span class="text-sm text-gray-700">Ingat saya</span>
                         </label>
-                        <a href="{{ route('password.request') }}" class="text-sm font-medium text-cyan-600 hover:text-cyan-700 transition">
+                        <a href="{{ route('password.request') }}"
+                            class="text-sm font-medium text-cyan-600 hover:text-cyan-700 transition">
                             Lupa password?
                         </a>
                     </div>
@@ -86,10 +89,11 @@
                 </form>
 
 
-                   <div class="mt-8 text-center">
+                <div class="mt-8 text-center">
                     <p class="text-gray-600 text-sm">
                         Belum memiliki akun?
-                        <a href="{{ route('filament.admin.pages.register') }}" class="font-semibold text-cyan-600 hover:text-cyan-700 transition">
+                        <a href="{{ route('filament.admin.pages.register') }}"
+                            class="font-semibold text-cyan-600 hover:text-cyan-700 transition">
                             Buat akun
                         </a>
                     </p>
@@ -102,20 +106,20 @@
                 style="background-image: url('{{ Vite::asset('resources/assets/images/home.png') }}');"></div>
         </div>
     </div>
-    
+
     <script>
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
+
             const button = document.getElementById('loginButton');
             const originalText = button.textContent;
             button.disabled = true;
             button.textContent = 'Memproses...';
-            
+
             const formData = new FormData(this);
-            
+
             try {
-                const response = await fetch('{{ route("login.authenticate") }}', {
+                const response = await fetch('{{ route('login.authenticate') }}', {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
@@ -123,9 +127,9 @@
                     },
                     body: formData
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (response.ok && data.success) {
                     await Swal.fire({
                         icon: 'success',

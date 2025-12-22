@@ -13,7 +13,7 @@ class PeminjamenTable
     {
         return $table
             ->columns([
-               TextColumn::make('customer.name')
+               TextColumn::make('user.name')
                     ->label('Nama Peminjam')
                     ->searchable(),
                 TextColumn::make('barang.nama_barang')

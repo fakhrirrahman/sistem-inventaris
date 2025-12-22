@@ -5,6 +5,7 @@ namespace App\Filament\Widgets;
 use App\Models\Barang;
 use App\Models\Customer;
 use App\Models\Peminjaman;
+use App\Models\User;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 
@@ -17,10 +18,10 @@ class OverviewStats extends BaseWidget
                 ->description('Jumlah keseluruhan barang dalam inventaris')
                 ->descriptionIcon('heroicon-o-archive-box')
                 ->color('primary'),
-            // Stat::make('Total Customer', Customer::count())
-            //     ->description('Jumlah keseluruhan customer')
-            //     ->descriptionIcon('heroicon-o-users')
-            //     ->color('success'),
+            Stat::make('Total Customer', User::count())
+                ->description('Jumlah keseluruhan customer')
+                ->descriptionIcon('heroicon-o-users')
+                ->color('success'),
             Stat::make('Jumlah Barang Terpinjam', Peminjaman::whereNotNull('tanggal_pinjam')->count())
                 ->description('Jumlah barang yang sedang dipinjam')
                 ->descriptionIcon('heroicon-o-shopping-cart')

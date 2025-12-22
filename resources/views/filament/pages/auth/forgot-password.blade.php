@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lupa Password - Sistem Inventaris</title>
+    <link rel="shortcut icon" href="{{ Vite::asset('resources/assets/images/icon.png') }}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -47,8 +48,7 @@
                 <div class="mt-8 text-center space-y-4">
                     <p class="text-gray-600 text-sm">
                         Ingat password Anda?
-                        <a href="/admin/login"
-                            class="font-semibold text-cyan-600 hover:text-cyan-700 transition">
+                        <a href="/admin/login" class="font-semibold text-cyan-600 hover:text-cyan-700 transition">
                             Login di sini
                         </a>
                     </p>
@@ -94,13 +94,13 @@
                 @foreach ($errors->all() as $error)
                     errorMessages.push(@json($error));
                 @endforeach
-                
+
                 let errorHtml = '<div style="text-align: left;">';
                 errorMessages.forEach(function(msg) {
                     errorHtml += '<p style="margin: 5px 0;">• ' + msg + '</p>';
                 });
                 errorHtml += '</div>';
-                
+
                 Swal.fire({
                     icon: 'error',
                     title: 'Ada Kesalahan!',
@@ -125,7 +125,8 @@
                 }
 
                 submitBtn.disabled = true;
-                submitBtn.innerHTML = '<span class="inline-flex items-center"><svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Mengirim...</span>';
+                submitBtn.innerHTML =
+                    '<span class="inline-flex items-center"><svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Mengirim...</span>';
 
                 setTimeout(() => {
                     form.submit();

@@ -10,17 +10,17 @@ class Peminjaman extends Model
 
     protected $fillable = [
         'customer_id',
-        'barang_id',
+        'user_id',
         'tanggal_pinjam',
         'tanggal_kembali',
         'alasan_peminjaman',
         'jumlah_peminjaman',
     ];
 
-    // public function customer()
-    // {
-    //     return $this->belongsTo(Customer::class);
-    // }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function barang()
     {
