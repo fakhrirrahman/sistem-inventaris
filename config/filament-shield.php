@@ -25,7 +25,6 @@ return [
             'resources' => true,
             'custom_permissions' => false,
         ],
-        'navigation_group' => 'Administration',
     ],
 
     /*
