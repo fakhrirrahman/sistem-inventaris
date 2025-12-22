@@ -13,7 +13,14 @@ use Filament\Widgets\TableWidget as BaseWidget;
 class LogPeminjamanWidget extends BaseWidget
 {
     protected static ?string $heading = 'Log Peminjaman';
-
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->when(
+                ! auth()->user()->hasRole('super_admin'),
+                fn($query) => $query->where('user_id', auth()->id())
+            );
+    }
     public function table(Table $table): Table
     {
         return $table
@@ -23,21 +30,21 @@ class LogPeminjamanWidget extends BaseWidget
                     ->limit(5)
             )
             ->columns([
-               TextColumn::make('no')
+                TextColumn::make('no')
                     ->label('No')
                     ->rowIndex(),
-               TextColumn::make('user.name')
+                TextColumn::make('user.name')
                     ->label('Nama Peminjam')
                     ->sortable(),
-               TextColumn::make('tanggal_pinjam')
+                TextColumn::make('tanggal_pinjam')
                     ->label('Tanggal Peminjaman')
                     ->date('d/m/Y')
                     ->sortable(),
-               TextColumn::make('tanggal_kembali')
+                TextColumn::make('tanggal_kembali')
                     ->label('Tanggal Pengembalian')
                     ->date('d/m/Y')
                     ->placeholder('-'),
-               BadgeColumn::make('status')
+                BadgeColumn::make('status')
                     ->getStateUsing(function ($record) {
                         if ($record->tanggal_kembali) {
                             return 'dikembalikan';
