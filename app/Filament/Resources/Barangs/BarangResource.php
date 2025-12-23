@@ -1,62 +1,56 @@
 <?php
 
-namespace App\Filament\Widgets;
+namespace App\Filament\Resources\Barangs;
 
-use Filament\Tables;
-use App\Models\Peminjaman;
+use App\Filament\Resources\Barangs\Pages\CreateBarang;
+use App\Filament\Resources\Barangs\Pages\EditBarang;
+use App\Filament\Resources\Barangs\Pages\ListBarangs;
+use App\Filament\Resources\Barangs\Schemas\BarangForm;
+use App\Filament\Resources\Barangs\Tables\BarangsTable;
+use App\Models\Barang;
+use BackedEnum;
+use UnitEnum;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\BadgeColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Widgets\TableWidget as BaseWidget;
 
-class LogPeminjamanWidget extends BaseWidget
+class BarangResource extends Resource
 {
-    protected static ?string $heading = 'Log Peminjaman';
+    protected static ?string $model = Barang::class;
 
-    public function table(Table $table): Table
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedArchiveBox;
+
+    protected static ?string $recordTitleAttribute = 'nama_barang';
+    protected static ?string $navigationLabel = 'Barang';
+    protected static ?string $pluralModelLabel = 'Barang';
+    protected static ?string $modelLabel = 'Barang';
+    protected static string | UnitEnum | null $navigationGroup = 'Master Data';
+
+
+    public static function form(Schema $schema): Schema
     {
-        return $table
-            ->query(
-                Peminjaman::query()
-                    ->with(['user', 'barang'])
-                    ->when(
-                        ! auth()->user()->hasRole('super_admin'),
-                        fn($query) => $query->where('user_id', auth()->id())
-                    )
-                    ->latest()
-                    ->limit(5)
-            )
-            ->columns([
-                TextColumn::make('no')
-                    ->label('No')
-                    ->rowIndex(),
+        return BarangForm::configure($schema);
+    }
 
-                TextColumn::make('user.name')
-                    ->label('Nama Peminjam')
-                    ->sortable(),
+    public static function table(Table $table): Table
+    {
+        return BarangsTable::configure($table);
+    }
 
-                TextColumn::make('tanggal_pinjam')
-                    ->label('Tanggal Peminjaman')
-                    ->date('d/m/Y')
-                    ->sortable(),
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
 
-                TextColumn::make('tanggal_kembali')
-                    ->label('Tanggal Pengembalian')
-                    ->date('d/m/Y')
-                    ->placeholder('-'),
-
-                BadgeColumn::make('status')
-                    ->getStateUsing(function ($record) {
-                        return $record->tanggal_kembali
-                            ? 'dikembalikan'
-                            : 'dipinjam';
-                    })
-                    ->colors([
-                        'success' => 'dikembalikan',
-                        'warning' => 'dipinjam',
-                    ]),
-            ])
-            ->paginated(false);
+    public static function getPages(): array
+    {
+        return [
+            'index' => ListBarangs::route('/'),
+            'create' => CreateBarang::route('/create'),
+            'edit' => EditBarang::route('/{record}/edit'),
+        ];
     }
 }
