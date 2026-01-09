@@ -35,10 +35,10 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Blue,
             ])
-            ->favicon(Vite::asset('resources/assets/images/icon.png'))
+            ->favicon(asset('favicon.png'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
-            ->homeUrl(fn () => route('filament.admin.pages.dashboard'))
+            ->homeUrl(fn() => route('filament.admin.pages.dashboard'))
             ->pages([
                 Login::class,
                 Register::class,
