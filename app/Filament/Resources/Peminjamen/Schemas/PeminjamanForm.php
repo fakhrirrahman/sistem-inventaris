@@ -18,9 +18,9 @@ class PeminjamanForm
                     ->searchable()
                     ->preload()
                     ->required()
-                    ->default(fn () => auth()->user()->hasRole('super_admin') ? null : auth()->id())
-                    ->disabled(fn () => !auth()->user()->hasRole('super_admin'))
-                    ->dehydrated(),
+                    ->default(fn() => auth()->id())
+                    ->disabled(fn() => ! auth()->user()->hasRole('SuperAdmin'))
+                    ->dehydrated(fn() => true),
                 Select::make('barang_id')
                     ->relationship('barang', 'nama_barang')
                     ->searchable()
