@@ -17,7 +17,7 @@ class LogPeminjamanWidget extends BaseWidget
     {
         return parent::getEloquentQuery()
             ->when(
-                ! auth()->user()->hasRole('super_admin'),
+                ! auth()->user()->hasRole('SuperAdmin'),
                 fn($query) => $query->where('user_id', auth()->id())
             );
     }

@@ -21,7 +21,7 @@ class OverviewStats extends BaseWidget
             Stat::make(
                 'Jumlah Barang Terpinjam',
                 Peminjaman::when(
-                    !auth()->user()->hasRole('super_admin'),
+                    !auth()->user()->hasRole('SuperAdmin'),
                     fn($query) => $query->where('user_id', auth()->id())
                 )->whereNotNull('tanggal_pinjam')->count()
             )
@@ -32,7 +32,7 @@ class OverviewStats extends BaseWidget
             Stat::make(
                 'Jumlah Barang Yang Sudah Kembali',
                 Peminjaman::when(
-                    !auth()->user()->hasRole('super_admin'),
+                    !auth()->user()->hasRole('SuperAdmin'),
                     fn($query) => $query->where('user_id', auth()->id())
                 )->whereNotNull('tanggal_kembali')->count()
             )
@@ -41,7 +41,7 @@ class OverviewStats extends BaseWidget
                 ->color('danger'),
         ];
 
-        if (auth()->user()->hasRole('super_admin')) {
+        if (auth()->user()->hasRole('SuperAdmin')) {
             $stats[] =
                 Stat::make('Total Customer', User::count())
                 ->description('Jumlah keseluruhan customer')

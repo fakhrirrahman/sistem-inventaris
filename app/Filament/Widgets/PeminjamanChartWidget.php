@@ -14,8 +14,8 @@ class PeminjamanChartWidget extends ChartWidget
         $peminjamanPerBarang = DB::table('peminjaman')
             ->join('barang', 'peminjaman.barang_id', '=', 'barang.id')
             ->when(
-                !auth()->user()->hasRole('super_admin'),
-                fn ($query) => $query->where('peminjaman.user_id', auth()->id())
+                !auth()->user()->hasRole('SuperAdmin'),
+                fn($query) => $query->where('peminjaman.user_id', auth()->id())
             )
             ->select('barang.nama_barang', DB::raw('count(*) as total'))
             ->groupBy('barang.nama_barang')
